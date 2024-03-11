@@ -98,4 +98,40 @@ class User extends BaseController
                 );
         }
     }
+
+    public function instantWin()
+    {
+        /* GET PARAMETERS */
+        $parameters= [];
+        foreach($this->request->getGet() as $key => $value) {
+            $parameters[$key] = $value;            
+        }
+
+        $longitudDeseada = 6; // Define la longitud del string deseado
+
+        return $this->getResponse(
+            [
+                'message' => 'Instant win awarded',
+                'code' => $this->generarStringAlfanumerico(6) . '-' . $this->generarStringAlfanumerico(6) . '-' . $this->generarStringAlfanumerico(6) 
+            ]
+        );
+    }
+
+    private function generarStringAlfanumerico($longitud) {
+        // Caracteres alfanuméricos en mayúsculas
+        $caracteres = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        
+        // Longitud de la cadena de caracteres
+        $numeroCaracteres = strlen($caracteres);
+        
+        // String aleatorio
+        $stringAleatorio = '';
+        
+        // Generar el string aleatorio
+        for ($i = 0; $i < $longitud; $i++) {
+            $stringAleatorio .= $caracteres[rand(0, $numeroCaracteres - 1)];
+        }
+        
+        return $stringAleatorio;
+    }
 }
